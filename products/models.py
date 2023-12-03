@@ -5,7 +5,7 @@ from services.mixin import DateMixin,SlugMixin
 from services.helper import slugify,generate_unique_slug
 from django.contrib.auth import get_user_model
 from ckeditor.fields import RichTextField
-from services.choices import STATUS
+from services.choices import STATUS,SKINTYPE
 from accounts.models import Profile
 
 User = get_user_model()
@@ -61,6 +61,7 @@ class Product(DateMixin,SlugMixin):
     # wishlist = models.ManyToManyField(User,blank=True)
     sku = models.IntegerField(blank=True,null=True)
     status = models.CharField(choices=STATUS,blank=True,null=True,max_length=300)
+    skin = models.CharField(choices=SKINTYPE,blank=True,null=True,max_length=300)
 
 
 

@@ -55,7 +55,7 @@ class ProductListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ("name", "price", "total_price", "discount_percent", "category", "status", "id",)
+        fields = ("name", "price", "total_price", "discount_percent", "category", "status", "id","skin")
 
     def to_representation(self, instance):
         repr_ = super().to_representation(instance)
@@ -129,7 +129,7 @@ class RelatedProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ("id", "title", "price", "total_price", "status", "discount_percent")
+        fields = ("id", "title", "price", "total_price", "status", "discount_percent","skin")
 
     def to_representation(self, instance):
         # Annotate discount_percent for the related product

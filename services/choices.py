@@ -3,6 +3,16 @@ STATUS = (
     ('LOW STOCK','LOW STOCK'),
 )
 
+SKINTYPE = (
+    ('ALL','ALL'),
+    ('SENSITIVE','SENSITIVE'),
+    ('OILY','OILY'),
+    ('ACNE','ACNE'),
+    ('NORMAL','NORMAL'),
+    ('DRY','DRY'),
+
+)
+
 SUBJECTS = (
     ('GENERAL INQUIRY','GENERAL INQUIRY'),
     ('CUSTOMER SUPPORT','CUSTOMER SUPPORT'),
