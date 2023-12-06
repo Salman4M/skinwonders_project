@@ -29,6 +29,8 @@ urlpatterns = [
     # path('list/name/filter/descending/', views.NameDescendingFilter.as_view(), name='name-descending-filter'),
     # path('list/created/ascending/', views.CreatedAscendingFilter.as_view(), name='created-ascending-filter'),
     # path('list/created/descending/', views.CreatedDescendingFilter.as_view(), name='created-descending-filter'),
+                                            ###Rating###
+    path("detail/rating/<int:id>/",views.RatingView.as_view(), name="rating"),
                                             ###Comment###                                            
     path("detail/comment/<int:id>/",views.CommentView.as_view(), name="comment"),
     path("detail/comment/update/<int:id>/",views.CommentUpdateView.as_view(), name="comment-update"),

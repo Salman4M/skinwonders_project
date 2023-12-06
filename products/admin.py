@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Category,Product,ProductImage,Newsletter,OrderItem,Order,Basket,ShippingInfo,BillingInfo,PaymentInfo,Wishlist
+from .models import Category,Product,ProductImage,Newsletter,OrderItem,Order,Basket,ShippingInfo,BillingInfo,PaymentInfo,Wishlist,ProductRating,ProductComment
 
 
 
@@ -38,4 +38,7 @@ admin.site.register(PaymentInfo)
 
 
 admin.site.register(Wishlist)
-# admin.site.register(SkinType)
+admin.site.register(ProductComment)
+admin.site.register(ProductRating)
+
+

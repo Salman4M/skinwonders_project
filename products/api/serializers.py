@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from ..models import Category,Product,ProductImage,Newsletter,Basket,Order,OrderItem,ShippingInfo,BillingInfo,PaymentInfo,Wishlist,ProductComment
+from ..models import Category,Product,ProductImage,Newsletter,Basket,Order,OrderItem,ShippingInfo,BillingInfo,PaymentInfo,Wishlist,ProductComment,ProductRating
 from django.contrib.auth import get_user_model
 from django.db.models import F, FloatField,Value
 from django.db.models.functions import Coalesce
@@ -45,6 +45,25 @@ class ImageSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = SkinType
 #         fields = ("skin",)
+
+
+
+class RatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductRating
+
+        fields = "__all__"
+        extra_kwargs = {
+            "user":{
+                "read_only":True
+            },
+            "product":{
+                "read_only":True
+            }
+        }
+
+    
+
 
 
 class ProductListSerializer(serializers.ModelSerializer):

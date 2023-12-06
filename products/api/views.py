@@ -1,8 +1,10 @@
-from ..models import Category,Product,Basket,OrderItem,Order,ProductComment
+from ..models import Category,Product,Basket,OrderItem,Order,ProductComment,ProductRating
 from django.shortcuts import get_object_or_404,redirect
 from rest_framework.response import Response
 from rest_framework import generics
-from .serializers import CategorySerializer,ProductSerializer,WishlistSerializer,ProductListSerializer,NewsletterSubscribeSerializer,BasketSerializer,RemoveCartItemSerializer,BillingInfoSerializer,ShippingInfoSerializer,PaymentInfoSerializer,BasketItemSerializer,PlaceOrderSerializer,OrderListSerializer,CommentSerializer,CommentUpdateSerializer
+from .serializers import CategorySerializer,ProductSerializer,WishlistSerializer,ProductListSerializer,NewsletterSubscribeSerializer,BasketSerializer
+from .serializers import RemoveCartItemSerializer,BillingInfoSerializer,ShippingInfoSerializer,PaymentInfoSerializer,BasketItemSerializer,PlaceOrderSerializer,OrderListSerializer
+from .serializers import CommentSerializer,CommentUpdateSerializer,RatingSerializer
 from .paginations import CustomPagination
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 from .permissions import CustomPermission
@@ -1135,3 +1137,34 @@ class CommentUpdateView(generics.RetrieveUpdateDestroyAPIView):
 
         serializer = self.get_serializer(instance)
         return Response(serializer.data, status=200)
+    
+
+
+
+class RatingView(generics.CreateAPIView):
+    serializer_class=RatingSerializer
+    queryset=ProductRating.objects.all()
+    permission_classes=(IsAuthenticated,)
+
+    def post(self, request, id, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        product = get_object_or_404(Product, id=id)
+
+        user= self.request.user
+        rating=request.data.get("rating")
+
+        check = ProductRating.objects.filter(user=user,product=product)
+        if check:
+           product_rating = check.first()
+           product_rating.rating = rating
+           product_rating.save()
+        else:
+            serializer.save(user=user,rating=rating,product=product)
+
+        updated_or_created_rating = ProductRating.objects.get(user=user, product=product)
+        serialized_data = self.serializer_class(updated_or_created_rating).data
+
+
+        return Response(serialized_data, status=200)
+    

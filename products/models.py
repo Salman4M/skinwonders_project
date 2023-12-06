@@ -5,7 +5,7 @@ from services.mixin import DateMixin,SlugMixin
 from services.helper import slugify,generate_unique_slug
 from django.contrib.auth import get_user_model
 from ckeditor.fields import RichTextField
-from services.choices import STATUS,SKINTYPE
+from services.choices import STATUS,SKINTYPE,RATINGS
 from accounts.models import Profile
 
 User = get_user_model()
@@ -237,6 +237,16 @@ class OrderItem(DateMixin):
         return total
 
 
+
+
+
+
+class ProductRating(models.Model):
+    user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,null=True)
+    rating = models.PositiveBigIntegerField(choices=RATINGS,null=True)
+    def __str__(self):
+        return f"{self.rating}--->{self.product.name}"
 
 
 
