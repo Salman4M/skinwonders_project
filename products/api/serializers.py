@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from ..models import Category,Product,ProductImage,Newsletter,Basket,Order,OrderItem,ShippingInfo,BillingInfo,PaymentInfo,Wishlist,ProductComment,ProductRating
 from django.contrib.auth import get_user_model
-from django.db.models import F, FloatField,Value
+from django.db.models import F, FloatField,Value,Avg
 from django.db.models.functions import Coalesce
 
 User = get_user_model()
@@ -69,12 +69,14 @@ class RatingSerializer(serializers.ModelSerializer):
 class ProductListSerializer(serializers.ModelSerializer):
     total_price = serializers.FloatField(read_only=True)
     discount_percent = serializers.IntegerField(read_only=True)
+    rating = serializers.SerializerMethodField(read_only=True)
+
     # skintype = serializers.SerializerMethodField()
     # skintype = SkinTypeSerializer(read_only=True)
 
     class Meta:
         model = Product
-        fields = ("name", "price", "total_price", "discount_percent", "category", "status", "id","skin")
+        fields = ("name", "price", "total_price", "discount_percent", "category", "status", "id","skin","rating")
 
     def to_representation(self, instance):
         repr_ = super().to_representation(instance)
@@ -93,6 +95,11 @@ class ProductListSerializer(serializers.ModelSerializer):
     # def get_skintype(self, instance):
     #     skintype_obj = instance.skintype_set.first()
     #     return skintype_obj.skin
+
+    def get_rating(self,obj):
+        ratings = ProductRating.objects.filter(product=obj.id).aggregate(Avg('rating'))['rating__avg']
+
+        return ratings
 
 
 
@@ -145,10 +152,12 @@ class NewsletterSubscribeSerializer(serializers.ModelSerializer):
 class RelatedProductSerializer(serializers.ModelSerializer):
     total_price = serializers.FloatField(read_only=True)
     discount_percent = serializers.IntegerField(read_only=True)
+    rating = serializers.SerializerMethodField(read_only=True)
+
 
     class Meta:
         model = Product
-        fields = ("id", "title", "price", "total_price", "status", "discount_percent","skin")
+        fields = ("id", "title", "price", "total_price", "status", "discount_percent","skin","rating")
 
     def to_representation(self, instance):
         # Annotate discount_percent for the related product
@@ -169,12 +178,18 @@ class RelatedProductSerializer(serializers.ModelSerializer):
             repr_.pop("status")
 
         return repr_
+    
+    def get_rating(self,obj):
+        ratings = ProductRating.objects.filter(product=obj.id).aggregate(Avg('rating'))['rating__avg']
+
+        return ratings
 
 
 class ProductSerializer(serializers.ModelSerializer):
     total_price = serializers.FloatField(read_only=True)
     discount_percent = serializers.IntegerField(read_only=True)
     related_products = RelatedProductSerializer(many=True, read_only=True)  
+    rating = serializers.SerializerMethodField(read_only=True)
 
     # wishlist = UserSerializer(many=True)
 
@@ -202,7 +217,12 @@ class ProductSerializer(serializers.ModelSerializer):
         related_products = Product.objects.filter(category=instance.category).exclude(id=instance.id)[:5]
         repr_['related_products'] = RelatedProductSerializer(related_products, many=True).data
 
-        return repr_        
+        return repr_       
+    
+    def get_rating(self,obj):
+        ratings = ProductRating.objects.filter(product=obj.id).aggregate(Avg('rating'))['rating__avg']
+
+        return ratings
 
 
 
