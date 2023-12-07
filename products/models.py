@@ -245,6 +245,7 @@ class ProductRating(models.Model):
     user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE,null=True)
     rating = models.PositiveBigIntegerField(choices=RATINGS,null=True)
+    message = models.TextField(blank=True,null=True)
     def __str__(self):
         return f"{self.rating}--->{self.product.name}"
 
