@@ -41,13 +41,6 @@ class ImageSerializer(serializers.ModelSerializer):
 
 
 
-# class SkinTypeSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = SkinType
-#         fields = ("skin",)
-
-
-
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductRating
@@ -71,8 +64,6 @@ class ProductListSerializer(serializers.ModelSerializer):
     discount_percent = serializers.IntegerField(read_only=True)
     rating = serializers.SerializerMethodField(read_only=True)
 
-    # skintype = serializers.SerializerMethodField()
-    # skintype = SkinTypeSerializer(read_only=True)
 
     class Meta:
         model = Product
@@ -82,7 +73,6 @@ class ProductListSerializer(serializers.ModelSerializer):
         repr_ = super().to_representation(instance)
         repr_['category'] = CategorySerializer(instance.category).data
         repr_['images'] = ImageSerializer(instance.productimage_set.first()).data
-        # repr_['skintype'] = SkinTypeSerializer(instance.skintype_set.first()).data
 
         # if instance.discount_percent == 0:
         #     repr_.pop("discount_percent")
@@ -92,39 +82,11 @@ class ProductListSerializer(serializers.ModelSerializer):
 
         return repr_
     
-    # def get_skintype(self, instance):
-    #     skintype_obj = instance.skintype_set.first()
-    #     return skintype_obj.skin
 
     def get_rating(self,obj):
         ratings = ProductRating.objects.filter(product=obj.id).aggregate(Avg('rating'))['rating__avg']
 
         return ratings
-
-
-
-# class ProductListFilterSerializer(serializers.ModelSerializer):
-#     total_price = serializers.FloatField(read_only=True)
-#     discount_percent = serializers.IntegerField(read_only=True)
-
-#     class Meta:
-#         model = Product
-#         fields = ("name", "price", "total_price", "discount_percent", "category", "status", "id",)
-
-#     def to_representation(self, instance):
-#         repr_ = super().to_representation(instance)
-#         repr_['category'] = CategorySerializer(instance.category).data
-#         repr_['images'] = ImageSerializer(instance.productimage_set.first()).data
-#         # repr_['skintype'] = SkinTypeSerializer(instance.skintype_set.all(),many=True).data
-
-
-#         # if instance.discount_percent == 0:
-#         #     repr_.pop("discount_percent")
-
-#         if not instance.status:
-#             repr_.pop("status")
-
-#         return repr_
     
 
 
@@ -160,7 +122,6 @@ class RelatedProductSerializer(serializers.ModelSerializer):
         fields = ("id", "title", "price", "total_price", "status", "discount_percent","skin","rating")
 
     def to_representation(self, instance):
-        # Annotate discount_percent for the related product
         annotated_instance = Product.objects.annotate(
             discount_price=Coalesce('discount', Value(0), output_field=FloatField()),
             discount_percent=F("discount_price") * 100 / F("price")
@@ -191,8 +152,6 @@ class ProductSerializer(serializers.ModelSerializer):
     related_products = RelatedProductSerializer(many=True, read_only=True)  
     rating = serializers.SerializerMethodField(read_only=True)
 
-    # wishlist = UserSerializer(many=True)
-
 
     class Meta:
         model = Product
@@ -202,7 +161,6 @@ class ProductSerializer(serializers.ModelSerializer):
         repr_= super().to_representation(instance)
         repr_['category']=CategorySerializer(instance.category).data
         repr_['images']=ImageSerializer(instance.productimage_set.all(),many=True).data
-        # repr_['skintype'] = SkinTypeSerializer(instance.skintype_set.first()).data
 
 
         if not instance.status:
@@ -211,7 +169,6 @@ class ProductSerializer(serializers.ModelSerializer):
         if not instance.code:
             repr_.pop("code")
 
-        # repr_['skintype']=SkinTypeSerializer(instance.skintype_set.all(),many=True).data
         # repr_["slug"] = instance.slug
         
         related_products = Product.objects.filter(category=instance.category).exclude(id=instance.id)[:5]
@@ -279,7 +236,6 @@ class BasketSerializer(serializers.ModelSerializer):
         }
 
     def get_product_image(self, obj):
-        # Fetch the related ProductImage and serialize its image URL
         try:
             product_image = ProductImage.objects.get(product=obj.product)
             return ImageSerializer(product_image).data.get('image')

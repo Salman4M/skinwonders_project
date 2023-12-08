@@ -22,7 +22,6 @@ class  ImageInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("name","id")
     inlines=[ImageInline]
-    # inlines=[ImageInline,SkinTypeInline]
 
 
 admin.site.register(Category, CategoryAdmin)
