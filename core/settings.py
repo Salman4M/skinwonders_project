@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-wy2tt=hgq2n*-1ukm_m5y)u#5av&!fg21v12s9ji2n_!h-ibzf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
 
 
 # Application definition
@@ -85,13 +85,24 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': '66FCfgaFegEBcEC356Ge6*5BaDbEccF*',
+        'HOST': 'monorail.proxy.rlwy.net',
+        'PORT': '39613',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -136,7 +147,7 @@ STATIC_URL = '/static/'
 if DEBUG:
     STATICFILES_DIRS  = [os.path.join(BASE_DIR,'static')]
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR,'static')
+    STATIC_ROOT = os.path.join(BASE_DIR,'static','staticfiles_build')
 
 
 MEDIA_URL = '/media/'
