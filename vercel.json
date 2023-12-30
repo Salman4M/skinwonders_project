@@ -1,7 +1,7 @@
 {
     "builds": [
         {
-            "src": "skinwonders_project/wsgi.py",
+            "src": "skinwonders_project/core/wsgi.py",
             "use": "@vercel/python",
             "config": {
                 "maxLambdaSize": "15mb",
@@ -12,7 +12,7 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "skinwonders_project/wsgi.py"
+            "dest": "skinwonders_project/core/wsgi.py"
         }
     ]
 }
