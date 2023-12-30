@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-wy2tt=hgq2n*-1ukm_m5y)u#5av&!fg21v12s9ji2n_!h-ibzf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
 
 
 # Application definition
@@ -85,10 +85,22 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'railway',
+        'USER':'postgres',
+        'PASSWORD':'aCfbFfd-f6fE3dGda3fGe-1D1CAD4F4G',
+        'HOST':'roundhouse.proxy.rlwy.net',
+        'PORT':'11358',
+
     }
 }
 
@@ -136,7 +148,7 @@ STATIC_URL = '/static/'
 if DEBUG:
     STATICFILES_DIRS  = [os.path.join(BASE_DIR,'static')]
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR,'static')
+    STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles_build','static')
 
 
 MEDIA_URL = '/media/'
