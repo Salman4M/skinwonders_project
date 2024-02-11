@@ -204,10 +204,15 @@ class WishlistSerializer(serializers.ModelSerializer):
 
     def get_product_image(self, obj):
         try:
-            product_image = ProductImage.objects.get(product=obj.products)
-            return ImageSerializer(product_image).data.get('image')
+            product_images = ProductImage.objects.filter(product=obj.products)
+            if product_images.exists():
+                product_image = product_images.first()
+                return ImageSerializer(product_image).data.get('image')
+            else:
+                return None
         except ProductImage.DoesNotExist:
             return None
+
         
     def get_total_price(self, obj):
         product_price = obj.products.price or 0 
@@ -237,19 +242,23 @@ class BasketSerializer(serializers.ModelSerializer):
 
     def get_product_image(self, obj):
         try:
-            product_image = ProductImage.objects.get(product=obj.product)
-            return ImageSerializer(product_image).data.get('image')
+            product_images = ProductImage.objects.filter(product=obj.product)
+            if product_images.exists():
+                product_image = product_images.first()
+                return ImageSerializer(product_image).data.get('image')
+            else:
+                return None
         except ProductImage.DoesNotExist:
             return None
-        
-    def get_total_price(self, obj):
-        product_price = obj.product.price or 0  
-        product_discount = obj.product.discount or 0 
-        return product_price - product_discount
 
 
     def get_product_title(self,obj):
         return obj.product.title
+    
+    def get_total_price(self, obj):
+        product_price = obj.product.price or 0  # Use 0 if product price is None
+        product_discount = obj.product.discount or 0  # Use 0 if product discount is None
+        return product_price - product_discount
 
 
 class BasketItemSerializer(serializers.ModelSerializer):
@@ -263,10 +272,13 @@ class BasketItemSerializer(serializers.ModelSerializer):
         fields = ('id', 'product', 'price', 'total_price', 'product_image','product_title')
 
     def get_product_image(self, obj):
-        # Fetch the related ProductImage and serialize its image URL
         try:
-            product_image = ProductImage.objects.get(product=obj.product)
-            return ImageSerializer(product_image).data.get('image')
+            product_images = ProductImage.objects.filter(product=obj.product)
+            if product_images.exists():
+                product_image = product_images.first()
+                return ImageSerializer(product_image).data.get('image')
+            else:
+                return None
         except ProductImage.DoesNotExist:
             return None
         
