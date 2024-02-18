@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -48,12 +47,20 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'django_cleanup.apps.CleanupConfig',
     'ckeditor',
+    'modeltranslation',
+    ### this one has to be on the top but modeltranslation package has to be before that to working out
+    'django.contrib.admin',
+
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    ## for language
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -93,8 +100,6 @@ DATABASES = {
 }
 
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -117,7 +122,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+
+_=lambda s: s
+
+LANGUAGES=(
+    ('en',_('English')),
+    ('az',_('Azerbaijani')),
+)
+
+LANGUAGE_CODE = "az"
 
 TIME_ZONE = 'UTC'
 
@@ -127,6 +140,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+MODELTRANSLATION_TRANSLATION_FILES=(
+    'products.translation',
+    'content.translation',
+
+)
+MODELTRANSLATION_DEFAULT_LANGUAGE='az'
+MODELTRANSLATION_LANGUAGES=('az','en')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -179,8 +199,6 @@ REST_FRAMEWORK ={
 # CORS_ALLOWED_ORIGINS = ['http://localhost:3000',]
 
 
-
-
 CORS_ALLOW_METHODS = [
     "DELETE",
     "GET",
@@ -194,4 +212,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 
 
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR,'locale/'),
+    ]
 

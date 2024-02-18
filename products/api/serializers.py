@@ -57,12 +57,15 @@ class RatingSerializer(serializers.ModelSerializer):
 
     
 
-
+from django.utils.translation import gettext_lazy as _
+from services.choices import SKINTYPE
 
 class ProductListSerializer(serializers.ModelSerializer):
     total_price = serializers.FloatField(read_only=True)
     discount_percent = serializers.IntegerField(read_only=True)
     rating = serializers.SerializerMethodField(read_only=True)
+    skin = serializers.CharField(source='get_skin_display')
+    status = serializers.CharField(source='get_status_display')
 
 
     class Meta:
@@ -87,6 +90,13 @@ class ProductListSerializer(serializers.ModelSerializer):
         ratings = ProductRating.objects.filter(product=obj.id).aggregate(Avg('rating'))['rating__avg']
 
         return ratings
+    
+    def get_skin_display(self, obj):
+        return _(dict(SKINTYPE).get(obj.skin))
+ 
+
+    def get_status_display(self, obj):
+        return _(dict(SKINTYPE).get(obj.status))
     
 
 
@@ -115,6 +125,8 @@ class RelatedProductSerializer(serializers.ModelSerializer):
     total_price = serializers.FloatField(read_only=True)
     discount_percent = serializers.IntegerField(read_only=True)
     rating = serializers.SerializerMethodField(read_only=True)
+    skin = serializers.CharField(source='get_skin_display')
+    status = serializers.CharField(source='get_status_display')
 
 
     class Meta:
@@ -145,17 +157,27 @@ class RelatedProductSerializer(serializers.ModelSerializer):
 
         return ratings
 
+    def get_skin_display(self, obj):
+        return _(dict(SKINTYPE).get(obj.skin))
+ 
+
+    def get_status_display(self, obj):
+        return _(dict(SKINTYPE).get(obj.status))
+    
+
 
 class ProductSerializer(serializers.ModelSerializer):
     total_price = serializers.FloatField(read_only=True)
     discount_percent = serializers.IntegerField(read_only=True)
     related_products = RelatedProductSerializer(many=True, read_only=True)  
     rating = serializers.SerializerMethodField(read_only=True)
+    skin = serializers.CharField(source='get_skin_display')
+    status = serializers.CharField(source='get_status_display')
 
 
     class Meta:
         model = Product
-        exclude = ("slug","discount")
+        fields = ("id", "title", "price", "total_price", "status", "discount_percent","skin","rating","code","related_products","sku")
     
     def to_representation(self, instance):
         repr_= super().to_representation(instance)
@@ -180,6 +202,14 @@ class ProductSerializer(serializers.ModelSerializer):
         ratings = ProductRating.objects.filter(product=obj.id).aggregate(Avg('rating'))['rating__avg']
 
         return ratings
+
+    def get_skin_display(self, obj):
+        return _(dict(SKINTYPE).get(obj.skin))
+ 
+
+    def get_status_display(self, obj):
+        return _(dict(SKINTYPE).get(obj.status))
+    
 
 
 

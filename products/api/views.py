@@ -8,7 +8,7 @@ from .serializers import CommentSerializer,CommentUpdateSerializer,RatingSeriali
 from .paginations import CustomPagination
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 from .permissions import CustomPermission
-from django.db.models import F,FloatField,DecimalField,Sum,ExpressionWrapper,Value
+from django.db.models import F,FloatField,DecimalField,Sum,ExpressionWrapper,Value,IntegerField
 from django.db.models.functions import Coalesce
 from django.contrib.auth import login
 from rest_framework import filters
@@ -183,7 +183,7 @@ class ProductDetailView(generics.RetrieveAPIView):
     lookup_field="id"
 
     queryset = Product.objects.annotate(
-            discount_price = Coalesce('discount',0,output_field = FloatField()),
+            discount_price = Coalesce('discount',0,output_field = IntegerField()),
             total_price=F("price")-F("discount_price"),discount_percent=F("discount_price")*100/F("price")
         ).order_by('-created_at')
 

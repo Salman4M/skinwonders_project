@@ -56,7 +56,7 @@ class Product(DateMixin,SlugMixin):
     name = models.CharField(max_length=300)
     slug = models.SlugField(editable=False,blank=True,null=True)
     # description = RichTextField(blank=True,null=True)
-    price = models.FloatField(blank=True,null=True)
+    price = models.IntegerField(blank=True,null=True)
     discount = models.FloatField(blank=True,null=True)
     # wishlist = models.ManyToManyField(User,blank=True)
     sku = models.IntegerField(blank=True,null=True)
@@ -64,9 +64,9 @@ class Product(DateMixin,SlugMixin):
     skin = models.CharField(choices=SKINTYPE,blank=True,null=True,max_length=300)
 
 
-
     def __str__(self):
         return self.title
+
 
     class Meta:
         ordering = ("-created_at", )

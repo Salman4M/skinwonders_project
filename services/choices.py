@@ -1,15 +1,18 @@
+from django.utils.translation import gettext_lazy as _
+
+
 STATUS = (
-    ('NEW IN','NEW IN'),
-    ('LOW STOCK','LOW STOCK'),
+    ('NEW IN',_('NEW IN')),
+    ('LOW STOCK',_('LOW STOCK')),
 )
 
 SKINTYPE = (
-    ('ALL','ALL'),
-    ('SENSITIVE','SENSITIVE'),
-    ('OILY','OILY'),
-    ('ACNE','ACNE'),
-    ('NORMAL','NORMAL'),
-    ('DRY','DRY'),
+    ('ALL',_('ALL')),
+    ('SENSITIVE',_('SENSITIVE')),
+    ('OILY',_('OILY')),
+    ('ACNE',_('ACNE')),
+    ('NORMAL',_('NORMAL')),
+    ('DRY',_('DRY')),
 
 )
 
@@ -25,41 +28,41 @@ RATINGS = (
 
 
 SUBJECTS = (
-    ('GENERAL INQUIRY','GENERAL INQUIRY'),
-    ('CUSTOMER SUPPORT','CUSTOMER SUPPORT'),
-    ('FEEDBACK OR SUGGESTIONS','FEEDBACK OR SUGGESTIONS'),
-    ('PARTNERSHIP OR COLLABORATIONS','PARTNERSHIP OR COLLABORATIONS'),
+    ('GENERAL INQUIRY',_('GENERAL INQUIRY')),
+    ('CUSTOMER SUPPORT',_('CUSTOMER SUPPORT')),
+    ('FEEDBACK OR SUGGESTIONS',_('FEEDBACK OR SUGGESTIONS')),
+    ('PARTNERSHIP OR COLLABORATIONS',_('PARTNERSHIP OR COLLABORATIONS')),
 )
 
 
 LOCATIONS = (
-    ("BAKU","BAKU"),
-    ("SYDNEY","SYDNEY"),
-    ("ZURICH","ZURICH"),
-    ("TOKYO","TOKYO"),
-    ("SAN-FRANCISCO","SAN-FRANCISCO"),
+    ("BAKU",_("BAKU")),
+    ("SYDNEY",_("SYDNEY")),
+    ("ZURICH",_("ZURICH")),
+    ("TOKYO",_("TOKYO")),
+    ("SAN-FRANCISCO",_("SAN-FRANCISCO")),
 )
 
 
 DEPARTMENTS = (
-    ('Product Development and Research','Product Development and Research',),
-    ('Marketing and Branding','Marketing and Branding'),
-    ('Sales and Distribution','Sales and Distribution'),
-    ("Finance and Administration","Finance and Administration"),
-    ("Research and Analytics","Research and Analytics"),
-    ("Creative and Design","Creative and Design"),
+    ('Product Development and Research',_('Product Development and Research',)),
+    ('Marketing and Branding',_('Marketing and Branding')),
+    ('Sales and Distribution',_('Sales and Distribution')),
+    ("Finance and Administration",_("Finance and Administration")),
+    ("Research and Analytics",_("Research and Analytics")),
+    ("Creative and Design",_("Creative and Design")),
 )
 
 TYPE=(
-    ('TOP TIPS','TOP TIPS'),
-    ('NEW IN','NEW IN'),
-    ('HOW TO','HOW TO'),
-    ('MASKS','MASKS'),
-    ('SUNCARE','SUNCARE'),
-    ('BESTSELLERS','BESTSELLERS'),
+    ('TOP TIPS',_('TOP TIPS')),
+    ('NEW IN',_('NEW IN')),
+    ('HOW TO',_('HOW TO')),
+    ('MASKS',_('MASKS')),
+    ('SUNCARE',_('SUNCARE')),
+    ('BESTSELLERS',_('BESTSELLERS')),
 )
 
 DATE=(
-    ('POPULAR','POPULAR'),
-    ('RECENT','RECENT'),
+    ('POPULAR',_('POPULAR')),
+    ('RECENT',_('RECENT')),
 )

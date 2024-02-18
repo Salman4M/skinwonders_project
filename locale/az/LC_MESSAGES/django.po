@@ -1,0 +1,147 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-18 21:01+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\core\settings.py:129
+msgid "English"
+msgstr "Ingilis"
+
+#: .\core\settings.py:130
+msgid "Azerbaijani"
+msgstr "Azərbaycan"
+
+#: .\services\choices.py:5 .\services\choices.py:58
+msgid "NEW IN"
+msgstr "YENI"
+
+#: .\services\choices.py:6
+msgid "LOW STOCK"
+msgstr "SON MƏHSUL"
+
+#: .\services\choices.py:10
+msgid "ALL"
+msgstr "HAMISI"
+
+#: .\services\choices.py:11
+msgid "SENSITIVE"
+msgstr "HƏSSAS"
+
+#: .\services\choices.py:12
+msgid "OILY"
+msgstr "YAĞLI"
+
+#: .\services\choices.py:13
+msgid "ACNE"
+msgstr "SIZANAQLI"
+
+#: .\services\choices.py:14
+msgid "NORMAL"
+msgstr "NORMAL"
+
+#: .\services\choices.py:15
+msgid "DRY"
+msgstr "QURU"
+
+#: .\services\choices.py:31
+msgid "GENERAL INQUIRY"
+msgstr "ÜMUMİ SORĞU"
+
+#: .\services\choices.py:32
+msgid "CUSTOMER SUPPORT"
+msgstr "MÜŞTƏRİ DƏSTƏYİ"
+
+#: .\services\choices.py:33
+msgid "FEEDBACK OR SUGGESTIONS"
+msgstr "GERİ DÖNÜŞ VƏ TƏKLİFLƏR"
+
+#: .\services\choices.py:34
+msgid "PARTNERSHIP OR COLLABORATIONS"
+msgstr "TƏRƏFDAŞLIQ VƏ ƏMƏKDAŞLIQ"
+
+#: .\services\choices.py:39
+msgid "BAKU"
+msgstr "BAKI"
+
+#: .\services\choices.py:40
+msgid "SYDNEY"
+msgstr "SİDNEY"
+
+#: .\services\choices.py:41
+msgid "ZURICH"
+msgstr "SÜRİX"
+
+#: .\services\choices.py:42
+msgid "TOKYO"
+msgstr "TOKYO"
+
+#: .\services\choices.py:43
+msgid "SAN-FRANCISCO"
+msgstr "SAN-FRANSİSKO"
+
+#: .\services\choices.py:48
+msgid "Product Development and Research"
+msgstr "Məhsul İnkişafı və Tədqiqat"
+
+#: .\services\choices.py:49
+msgid "Marketing and Branding"
+msgstr "Marketinq və Brendinq"
+
+#: .\services\choices.py:50
+msgid "Sales and Distribution"
+msgstr "Satış və Distribusiya"
+
+#: .\services\choices.py:51
+msgid "Finance and Administration"
+msgstr "Maliyyə və İdarəetmə"
+
+#: .\services\choices.py:52
+msgid "Research and Analytics"
+msgstr "Tədqiqat və Analitika"
+
+#: .\services\choices.py:53
+msgid "Creative and Design"
+msgstr "Kreativ və Dizayn"
+
+#: .\services\choices.py:57
+msgid "TOP TIPS"
+msgstr "ƏSAS İPUCLAR"
+
+#: .\services\choices.py:59
+msgid "HOW TO"
+msgstr "NECƏ"
+
+#: .\services\choices.py:60
+msgid "MASKS"
+msgstr "MASKALAR"
+
+#: .\services\choices.py:61
+msgid "SUNCARE"
+msgstr "GÜN BAXIMI"
+
+#: .\services\choices.py:62
+msgid "BESTSELLERS"
+msgstr "ƏN ÇOX SATANLAR"
+
+#: .\services\choices.py:66
+msgid "POPULAR"
+msgstr "POPULYAR"
+
+#: .\services\choices.py:67
+msgid "RECENT"
+msgstr "YENİ"
