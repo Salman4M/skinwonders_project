@@ -58,7 +58,7 @@ class RatingSerializer(serializers.ModelSerializer):
     
 
 from django.utils.translation import gettext_lazy as _
-from services.choices import SKINTYPE
+from services.choices import SKINTYPE,STATUS
 
 class ProductListSerializer(serializers.ModelSerializer):
     total_price = serializers.FloatField(read_only=True)
@@ -96,7 +96,7 @@ class ProductListSerializer(serializers.ModelSerializer):
  
 
     def get_status_display(self, obj):
-        return _(dict(SKINTYPE).get(obj.status))
+        return _(dict(STATUS).get(obj.status))
     
 
 
@@ -162,7 +162,7 @@ class RelatedProductSerializer(serializers.ModelSerializer):
  
 
     def get_status_display(self, obj):
-        return _(dict(SKINTYPE).get(obj.status))
+        return _(dict(STATUS).get(obj.status))
     
 
 
@@ -208,7 +208,7 @@ class ProductSerializer(serializers.ModelSerializer):
  
 
     def get_status_display(self, obj):
-        return _(dict(SKINTYPE).get(obj.status))
+        return _(dict(STATUS).get(obj.status))
     
 
 
@@ -434,3 +434,8 @@ class CommentUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         return super().update(instance, validated_data)
+    
+
+
+class LanguageSerializer(serializers.Serializer):
+    language = serializers.CharField()

@@ -23,7 +23,7 @@ def upload_to(instance,filename):
 class Category(DateMixin,MPTTModel):
     name = models.CharField(max_length=100,unique=True)
     parent = TreeForeignKey('self',on_delete=models.CASCADE,blank=True,null=True,related_name='children')
-    slug = models.SlugField(unique=True, editable=False,blank=True,null=True)
+    slug = models.SlugField(unique=True, editable=True,blank=True,null=True)
     icon = models.ImageField(blank=True,null=True)
 
 

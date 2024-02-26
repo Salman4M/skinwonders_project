@@ -19,6 +19,8 @@ from django.utils.translation import gettext_lazy as _
 
 from django.conf.urls.i18n import i18n_patterns
 
+from products.api import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include("accounts.api.urls")),
@@ -31,6 +33,8 @@ urlpatterns = [
 
 urlpatterns += [
     *i18n_patterns(*urlpatterns, prefix_default_language=False),
+    path("set_language/<str:language>/",views.LanguageSwitchAPIView.as_view(), name="set-language"),
+
     ]
 
 from django.conf import settings

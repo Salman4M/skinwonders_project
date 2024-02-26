@@ -7,4 +7,4 @@ class ProductTranslationOptions(TranslationOptions):
 
 @register(Category)
 class CategoryTranslationOptions(TranslationOptions):
-    fields = ('name','parent')
+    fields = ('name','parent','slug')
