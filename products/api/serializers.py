@@ -9,12 +9,10 @@ User = get_user_model()
 
 
 
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("id", "email", "name","surname")
-
 
 
 
@@ -32,6 +30,20 @@ class CategorySerializer(serializers.ModelSerializer):
         return repr_
 
 
+class ProductCreateSerializer(serializers.ModelSerializer):
+    # category=CategorySerializer(read_only=True)
+    class Meta:
+        model = Product
+        fields= "__all__"
+
+
+
+
+    # def to_representation(self, instance):
+    #     repr_ = super().to_representation(instance)
+    #     repr_['category']=CategorySerializer(instance.category).data
+    #     return repr_
+    
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -171,17 +183,20 @@ class ProductSerializer(serializers.ModelSerializer):
     discount_percent = serializers.IntegerField(read_only=True)
     related_products = RelatedProductSerializer(many=True, read_only=True)  
     rating = serializers.SerializerMethodField(read_only=True)
-    skin = serializers.CharField(source='get_skin_display')
-    status = serializers.CharField(source='get_status_display')
+    # skin = serializers.CharField(source='get_skin_display')
+    # status = serializers.CharField(source='get_status_display')
+
+    category = CategorySerializer()
+
 
 
     class Meta:
         model = Product
-        fields = ("id", "title", "price", "total_price", "status", "discount_percent","skin","rating","code","related_products","sku")
+        fields = ("id", "title", "price", "total_price", "status", "discount_percent","skin","rating","code","related_products","sku",'category')
     
     def to_representation(self, instance):
         repr_= super().to_representation(instance)
-        repr_['category']=CategorySerializer(instance.category).data
+        # repr_['category']=CategorySerializer(instance.category).data
         repr_['images']=ImageSerializer(instance.productimage_set.all(),many=True).data
 
 
@@ -203,12 +218,12 @@ class ProductSerializer(serializers.ModelSerializer):
 
         return ratings
 
-    def get_skin_display(self, obj):
-        return _(dict(SKINTYPE).get(obj.skin))
+    # def get_skin_display(self, obj):
+    #     return _(dict(SKINTYPE).get(obj.skin))
  
 
-    def get_status_display(self, obj):
-        return _(dict(STATUS).get(obj.status))
+    # def get_status_display(self, obj):
+    #     return _(dict(STATUS).get(obj.status))
     
 
 

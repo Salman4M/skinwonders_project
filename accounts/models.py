@@ -75,7 +75,7 @@ class MyUser(AbstractBaseUser,PermissionsMixin):
 class Profile(models.Model):
     user = models.OneToOneField(MyUser,on_delete=models.CASCADE)
     activation_code = models.PositiveBigIntegerField(blank=True,null=True,unique=True)
-
+    
 
     def __str__(self):
         return self.user.email

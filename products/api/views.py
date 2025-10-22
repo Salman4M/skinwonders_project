@@ -17,8 +17,13 @@ from django_filters.rest_framework.backends import DjangoFilterBackend
 
 from ..models import Wishlist
 
-from .serializers import WishlistSerializer
+from .serializers import WishlistSerializer,ProductCreateSerializer
 
+
+class ProductCreateView(generics.CreateAPIView):
+    queryset = Product.objects.filter()
+    serializer_class=ProductCreateSerializer
+     
 
 class CategoryView(generics.ListAPIView):
     queryset = Category.objects.filter(parent__isnull=True)
@@ -262,6 +267,7 @@ class BasketView(generics.CreateAPIView):
             basket_item.quantity = quantity
 
         basket_item.save()
+        print(request.session.session_key,request.user)
 
         serializer = self.get_serializer(basket_item)
         return Response(serializer.data, status=201)
@@ -428,6 +434,7 @@ class ShippingInfoView(generics.CreateAPIView):
         if serializer.is_valid():
             serializer.validated_data['user'] = self.request.user
             request.session['shipping_details'] = serializer.data
+            print(request.session.get('shipping_details'))
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
@@ -863,8 +870,9 @@ class CommentView(generics.CreateAPIView):
         session_key=None
 
         comment = serializer.save(product=product,user=user,session_key=session_key,email=email)
+        serializer=CommentSerializer(comment)
 
-        return Response(CommentSerializer(comment).data, status=200)
+        return Response(serializer.data, status=200)
 
 
 

@@ -47,8 +47,8 @@ class LoginSerializer(serializers.ModelSerializer):
         if not User.objects.filter(email=email).exists():
                 raise serializers.ValidationError({"error":"This email does not exist"})
         
-        if not User.objects.get(email=email).is_active:
-            raise serializers.ValidationError({"error":"Account is not activated.Please activate your account to log in"})
+        # if  not user.is_active:
+        #     raise serializers.ValidationError({"error":"Account is not activated.Please activate your account to log in"})
         
         if not user:
             raise serializers.ValidationError({"error":"Email or password is wrong"})                
@@ -119,7 +119,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             fail_silently=False,
         )
 
-        return user
+        return user 
 
 
     # def to_representation(self, instance):
@@ -127,7 +127,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     #     repr_["slug"] = instance.slug
     #     return repr_
     
-#registerde actvationu uuid ile yoxlamaq ucun 
+#registerde activationu uuid ile yoxlamaq ucun 
     def to_representation(self, instance):
         repr_ = super().to_representation(instance)
         repr_["slug"] = instance.slug

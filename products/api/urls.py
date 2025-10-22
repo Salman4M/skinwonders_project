@@ -8,6 +8,7 @@ app_name='products-api'
 urlpatterns = [
     path('categories/',views.CategoryView.as_view(),name='category'),
     path('list/',views.ProductListView.as_view(),name='list'),
+    path('create/',views.ProductCreateView.as_view(),name='create'),
     path('list/<slug:category_slug>/',views.CategoriesListsView.as_view(),name='list-categories'),
     # path('list/Eye Care/',views.EyeCareListView.as_view(),name='list-eyecare'),
     # path('list/Featured/',views.FeaturedListView.as_view(),name='list-featured'),

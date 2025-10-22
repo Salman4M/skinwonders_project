@@ -235,6 +235,10 @@ class OrderItem(DateMixin):
     def get_total(self):
         total = self.product.total_price * self.quantity
         return total
+    
+
+    def __str__(self):
+        return str(self.order.id)
 
 
 
